@@ -47,7 +47,7 @@ class HttpContent(object):
 
 class HttpClient(object):
     """ Http client with no external dependencies.
-    Simple at the expense of complete. No keep-alive or other fancy stuff """
+    Simple at the expense of completeness. No keep-alive or other fancy stuff """
 
     def __init__(self, base_url=None):
         self.base_url = base_url
