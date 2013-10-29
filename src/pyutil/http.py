@@ -62,7 +62,7 @@ class HttpClient(object):
         return self._do_request("DELETE", url, content, headers)
 
     def put(self, url, content=None, headers=None):
-        return self._do_request("POST", url, content, headers)
+        return self._do_request("PUT", url, content, headers)
 
     def _do_request(self, req_type, url, content=None, headers=None):
         if not headers:
