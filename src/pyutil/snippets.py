@@ -5,14 +5,11 @@ def dictify(current):
     """ Convert object graph to dict. Can't handle cyclic refs. """
 
     if hasattr(current, "__dict__"):
-        struct = {}
-        for attr in vars(current):
-            struct[attr] = dictify(getattr(current, attr))
-        return struct
+        return dictify(vars(current))
 
     elif isinstance(current, dict):
         for key, val in current.iteritems():
-            current[key] = dictify(val)
+            current[dictify(key)] = dictify(val)
         return current
 
     elif hasattr(current, "__iter__"):
@@ -26,6 +23,10 @@ def dictify(current):
 
 def dump(o):
     pprint(dictify(o), indent=2)
+
+def filedump(o, filename, append=True):
+    with open(filename, "a" if append else "w") as f:
+        f.write(pprint(dictify(o)))
 
 if __name__ == "__main__":
 
