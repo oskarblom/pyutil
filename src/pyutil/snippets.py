@@ -1,5 +1,6 @@
 from datetime import date
-from pprint import pprint
+import json
+import pprint
 
 def dictify(current):
     """ Convert object graph to dict. Can't handle cyclic refs. """
@@ -21,12 +22,21 @@ def dictify(current):
     else:
         return current
 
-def dump(o):
-    pprint(dictify(o), indent=2)
-
-def filedump(o, filename, append=True):
+def filedump(content, filename, append=True):
     with open(filename, "a" if append else "w") as f:
-        f.write(pprint(dictify(o)))
+        f.write(content)
+
+def dump(o):
+    return pprint.pformat(dictify(o), indent=2)
+
+def jsondump(o):
+    return json.dumps(dictify(o), indent=4)
+
+def filedump_obj(o, filename, append=True):
+    filedump(dump(o), filename, append)
+
+def filedump_jsonobj(o, filename, append=True):
+    filedump(jsondump(o), filename, append)
 
 if __name__ == "__main__":
 
