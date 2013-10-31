@@ -55,8 +55,8 @@ if __name__ == "__main__":
     f.b = 23.14
     f.z = { "fizz": b }
 
-    dump(f)
-    dump({"foo": f})
-    dump([1, 2, f])
-    dump("foobar")
-    dump(123)
+    print dump(f)
+    print dump({"foo": f})
+    print dump([1, 2, f])
+    print dump("foobar")
+    print dump(123)

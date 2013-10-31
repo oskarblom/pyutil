@@ -68,8 +68,8 @@ class HttpClient(object):
         if not headers:
             headers = {}
 
-        if content and "Content-type" not in headers:
-            headers["Content-type"] = content.content_type
+        if content and "Content-Type" not in headers:
+            headers["Content-Type"] = content.content_type
             data = content.get_encoded()
         else:
             data = None
