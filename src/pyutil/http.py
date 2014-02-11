@@ -68,9 +68,25 @@ class HttpClient(object):
         if not headers:
             headers = {}
 
-        if content and "Content-Type" not in headers:
-            headers["Content-Type"] = content.content_type
-            data = content.get_encoded()
+        if content:
+            if hasattr(content, "get_encoded"):
+                content_type = content.content_type
+                data = content.get_encoded()
+            elif isinstance(content, dict):
+                if headers["Content-Type"] == HttpContentType.JSON:
+                    data = json.dumps(content)
+                else:
+                    # Assume form
+                    content_type = HttpContentType.FORM
+                    data = urllib.urlencode(content)
+            else:
+                # Assume string
+                content_type = HttpContentType.TEXT
+                data = content
+
+            if "Content-Type" not in headers:
+                headers["Content-Type"] = content_type
+
         else:
             data = None
 
